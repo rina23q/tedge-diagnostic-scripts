@@ -1,0 +1,9 @@
+*.bak
+*.gho
+*.ori
+*.orig
+*.tmp
+*.diff
+*.patch
+
+output/
