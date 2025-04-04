@@ -6,4 +6,6 @@
 *.diff
 *.patch
 
+.idea
+
 output/

@@ -3,9 +3,16 @@ set -e
 
 COMMAND="$1"
 
+banner() {
+    echo "---------------------------------------------------"
+    echo "$*"
+    echo "---------------------------------------------------"
+}
+
 collect() {
     if command -V tedge > /dev/null 2>&1; then
-        tedge mqtt sub "#" --duration 5s
+        banner "tedge mqtt sub '#' --duration 5s"
+        tedge mqtt sub '#' --duration 5s
     fi
 }
 

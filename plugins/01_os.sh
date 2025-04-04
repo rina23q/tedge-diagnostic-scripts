@@ -1,13 +1,19 @@
 #!/bin/sh
 set -e
 
+banner() {
+    echo "---------------------------------------------------"
+    echo "$*"
+    echo "---------------------------------------------------"
+}
+
 collect() {
     if [ -f /etc/os-release ]; then
-        echo "file: /etc/os-release"
+        banner "/etc/os-release"
         cat /etc/os-release
     fi
 
-    echo "system information"
+    banner "system information"
     uname -a
 }
 

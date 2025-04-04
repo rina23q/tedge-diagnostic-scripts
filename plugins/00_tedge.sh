@@ -15,7 +15,7 @@ collect() {
     # tedge-agent
     banner "tedge-agent"
     if command -V journalctl >/dev/null 2>&1; then
-        journalctl -u tedge-agent -n 1000 2>&1 ||:
+        journalctl -u tedge-agent -n 1000 --no-pager 2>&1 ||:
     fi
 
     # mappers
@@ -24,7 +24,7 @@ collect() {
         if tedge config get "${mapper}.url" >/dev/null 2>&1; then
             if command -V journalctl >/dev/null 2>&1; then
             banner "tedge-mapper-${mapper}"
-                journalctl -u "tedge-mapper-${mapper}" -n 1000 2>&1 ||:
+                journalctl -u "tedge-mapper-${mapper}" -n 1000 --no-pager 2>&1 ||:
             fi
         fi
     done

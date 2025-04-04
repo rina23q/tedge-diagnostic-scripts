@@ -11,7 +11,7 @@ banner() {
 mosquitto_journal() {
     if command -V journalctl >/dev/null 2>&1; then
         banner "mosquitto journal"
-        journalctl -u "mosquitto" -n 1000 2>&1 ||:
+        journalctl -u "mosquitto" -n 1000 --no-pager 2>&1 ||:
     fi
 }
 

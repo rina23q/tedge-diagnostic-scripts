@@ -2,11 +2,17 @@
 set -e
 
 COMMAND="$1"
-LOG_PATH="$(tedge config get logs.path)"
+
+banner() {
+    echo "---------------------------------------------------"
+    echo "$*"
+    echo "---------------------------------------------------"
+}
 
 collect() {
     if command -V tedge > /dev/null 2>&1; then
-        tedge http get /tedge/entity-store/v1/entities
+        banner "http get /tedge/v1/entities"
+        tedge http get /tedge/v1/entities
     fi
 }
 

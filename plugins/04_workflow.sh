@@ -2,7 +2,7 @@
 set -e
 
 COMMAND="$1"
-LOG_PATH="$(tedge config get logs.path)"
+LOGS_PATH="$(tedge config get logs.path)"
 
 banner() {
     echo "---------------------------------------------------"
@@ -11,13 +11,13 @@ banner() {
 }
 
 collect() {
-    if [ -d "$LOG_PATH"/agent ]; then
-        for file in "$LOG_PATH"/agent/*; do
-            banner $file
+    if [ -d "$LOGS_PATH"/agent ]; then
+        for file in "$LOGS_PATH"/agent/*; do
+            banner "$file"
             cat "$file"
         done
     else 
-        echo "${LOG_PATH} not found" >&2
+        echo "${LOGS_PATH} not found" >&2
     fi
 }
 
