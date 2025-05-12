@@ -22,19 +22,14 @@ while [ $# -gt 0 ]; do
     esac
 done
 
-# Check if the output directory exists
-if [ -n "$OUTPUT_DIR" ] && [ ! -d "$OUTPUT_DIR" ]; then
-    echo "Error: Output directory does not exist: $OUTPUT_DIR" >&2
-    exit 1
-fi
-
-
 collect() {
     if command -V tedge > /dev/null 2>&1; then
-        echo "tedge mqtt sub '#' --duration 5s" > "$OUTPUT_DIR"/tedge-mqtt-sub.log 2>&1
-        tedge mqtt sub '#' --duration 5s >> "$OUTPUT_DIR"/tedge-mqtt-sub.log 2>&1
-        echo "tedge mqtt sub '#' --duration 5s --retained-only" > "$OUTPUT_DIR"/tedge-mqtt-sub-retained-only.log 2>&1
-        tedge mqtt sub '#' --duration 1s --retained-only >> "$OUTPUT_DIR"/tedge-mqtt-sub-retained-only.log 2>&1
+        echo "tedge http get /te/v1/entities"
+            if command -V jq > /dev/null 2>&1; then
+                tedge http get /te/v1/entities | jq
+            else
+                tedge http get /te/v1/entities
+            fi
     fi
 }
 

@@ -1,6 +1,10 @@
 #!/bin/sh
 set -e
 
+# This script serves as a template for collecting logs.
+# To execute the script, use the following example command:
+# ./00_template.sh collect --output-dir /tmp
+
 OUTPUT_DIR=""
 COMMAND=""
 
@@ -28,16 +32,13 @@ if [ -n "$OUTPUT_DIR" ] && [ ! -d "$OUTPUT_DIR" ]; then
     exit 1
 fi
 
-
 collect() {
-    if command -V tedge > /dev/null 2>&1; then
-        echo "tedge mqtt sub '#' --duration 5s" > "$OUTPUT_DIR"/tedge-mqtt-sub.log 2>&1
-        tedge mqtt sub '#' --duration 5s >> "$OUTPUT_DIR"/tedge-mqtt-sub.log 2>&1
-        echo "tedge mqtt sub '#' --duration 5s --retained-only" > "$OUTPUT_DIR"/tedge-mqtt-sub-retained-only.log 2>&1
-        tedge mqtt sub '#' --duration 1s --retained-only >> "$OUTPUT_DIR"/tedge-mqtt-sub-retained-only.log 2>&1
-    fi
+    echo "Output to stdout"
+    echo "Output to stderr" >&2
+    echo "Output to a file" > "$OUTPUT_DIR"/template.log 2>&1
 }
 
+# Execute the specified command
 case "$COMMAND" in
     collect)
         collect

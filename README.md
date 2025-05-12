@@ -5,7 +5,7 @@ PoC for the thin-edge diagnostic feature
 ```shell
 git clone https://github.com/rina23q/tedge-diagnostic-scripts.git
 cd tedge-diagnostic-scripts
-./runner.sh collect
+./runner.sh collect --plugin-dir ./plugins-legacy
 ```
 
 ## Check output

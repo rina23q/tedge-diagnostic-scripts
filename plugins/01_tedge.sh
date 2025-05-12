@@ -28,16 +28,28 @@ if [ -n "$OUTPUT_DIR" ] && [ ! -d "$OUTPUT_DIR" ]; then
     exit 1
 fi
 
-
-collect() {
-    if command -V tedge > /dev/null 2>&1; then
-        echo "tedge mqtt sub '#' --duration 5s" > "$OUTPUT_DIR"/tedge-mqtt-sub.log 2>&1
-        tedge mqtt sub '#' --duration 5s >> "$OUTPUT_DIR"/tedge-mqtt-sub.log 2>&1
-        echo "tedge mqtt sub '#' --duration 5s --retained-only" > "$OUTPUT_DIR"/tedge-mqtt-sub-retained-only.log 2>&1
-        tedge mqtt sub '#' --duration 1s --retained-only >> "$OUTPUT_DIR"/tedge-mqtt-sub-retained-only.log 2>&1
+# Collect logs for a given service
+collect_logs() {
+    SERVICE="$1"
+    if command -V journalctl >/dev/null 2>&1; then
+        journalctl -u "$SERVICE" -n 1000 --no-pager > "$OUTPUT_DIR/${SERVICE}.log" 2>&1 ||:
     fi
 }
 
+collect() {
+    # tedge-agent
+    collect_logs "tedge-agent"
+
+    # Collect logs for each mapper
+    CLOUDS="c8y az aws"
+    for cloud in $CLOUDS; do
+        if tedge config get "${cloud}.url" >/dev/null 2>&1; then
+            collect_logs "tedge-mapper-${cloud}"
+        fi
+    done
+}
+
+# Execute the specified command
 case "$COMMAND" in
     collect)
         collect

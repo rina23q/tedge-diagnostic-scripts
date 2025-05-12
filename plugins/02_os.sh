@@ -3,7 +3,6 @@ set -e
 
 OUTPUT_DIR=""
 COMMAND=""
-LOGS_PATH="$(tedge config get logs.path)"
 
 # Parse arguments
 while [ $# -gt 0 ]; do
@@ -23,21 +22,14 @@ while [ $# -gt 0 ]; do
     esac
 done
 
-# Check if the output directory exists
-if [ -n "$OUTPUT_DIR" ] && [ ! -d "$OUTPUT_DIR" ]; then
-    echo "Error: Output directory does not exist: $OUTPUT_DIR" >&2
-    exit 1
-fi
-
-
 collect() {
-    if [ -d "$LOGS_PATH"/agent ]; then
-        for file in "$LOGS_PATH"/agent/*; do
-            cp "$file" "$OUTPUT_DIR"/
-        done
-    else 
-        echo "${LOGS_PATH} not found" >&2
+    if [ -f /etc/os-release ]; then
+        echo "/etc/os-release"
+        cat /etc/os-release
     fi
+
+    echo "system information"
+    uname -a
 }
 
 

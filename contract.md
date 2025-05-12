@@ -46,5 +46,5 @@ $ tedge diag collect [OPTIONS]
 ## Diagnostic plugin's responsibility
 * Plugin must be an executable.
 * Plugin is called by the runner with arguments (see runner's spec).
-* Plugin should output to the given directory provided by the argument.
+* Plugin should output to the given directory provided by the argument. (with `--output-dir <DIR>`)
 * Plugin should exit before the timeout and return with respectful exit code.
