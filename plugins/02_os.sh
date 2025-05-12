@@ -1,23 +1,17 @@
 #!/bin/sh
 set -e
 
-OUTPUT_DIR=""
 COMMAND=""
 
 # Parse arguments
 while [ $# -gt 0 ]; do
     case "$1" in
-        --output-dir)
-            OUTPUT_DIR="$2"
-            shift 2
-            ;;
         collect)
             COMMAND="collect"
             shift
             ;;
         *)
-            echo "Unknown command: $1" >&2
-            exit 1
+            shift
             ;;
     esac
 done

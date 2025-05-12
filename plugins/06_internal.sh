@@ -2,8 +2,8 @@
 set -e
 
 OUTPUT_DIR=""
+CONFIG_DIR=${TEDGE_CONFIG_DIR:-/etc/tedge}
 COMMAND=""
-CONFIG_DIR="$TEDGE_CONFIG_DIR"
 
 # Parse arguments
 while [ $# -gt 0 ]; do
@@ -21,8 +21,7 @@ while [ $# -gt 0 ]; do
             shift
             ;;
         *)
-            echo "Unknown command: $1" >&2
-            exit 1
+            shift
             ;;
     esac
 done

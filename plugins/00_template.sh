@@ -6,6 +6,7 @@ set -e
 # ./00_template.sh collect --output-dir /tmp
 
 OUTPUT_DIR=""
+CONFIG_DIR=${TEDGE_CONFIG_DIR:-/etc/tedge}
 COMMAND=""
 
 # Parse arguments
@@ -15,13 +16,16 @@ while [ $# -gt 0 ]; do
             OUTPUT_DIR="$2"
             shift 2
             ;;
+        --config-dir)
+            CONFIG_DIR="$2"
+            shift 2
+            ;;
         collect)
             COMMAND="collect"
             shift
             ;;
         *)
-            echo "Unknown command: $1" >&2
-            exit 1
+            shift
             ;;
     esac
 done

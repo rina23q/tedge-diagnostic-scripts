@@ -16,8 +16,7 @@ while [ $# -gt 0 ]; do
             shift
             ;;
         *)
-            echo "Unknown command: $1" >&2
-            exit 1
+            shift
             ;;
     esac
 done
